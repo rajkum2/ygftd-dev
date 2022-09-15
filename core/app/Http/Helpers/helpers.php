@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 
 function systemDetails()
 {
-    $system['name'] = 'younggifted';
+    $system['name'] = 'ygft';
     $system['version'] = '1.1';
     $system['build_version'] = '4.2.5';
     return $system;

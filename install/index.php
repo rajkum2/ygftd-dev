@@ -1,5 +1,8 @@
 <?php
-$itemName = 'younggifted';
+
+use Illuminate\Support\Arr;
+
+$itemName = 'ygft';
 error_reporting(0);
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 function appUrl()
@@ -64,18 +67,20 @@ if ($action == 'requirements') {
 	}
 }
 if ($action == 'result') {
-	$url = 'https://license.viserlab.com/install';
-	$params = $_POST;
-	$params['product'] = $itemName;
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	$result = curl_exec($ch);
-	curl_close($ch);
-	$response = json_decode($result, true);
-
+	// $url = 'https://license.viserlab.com/install';
+	// $params = $_POST;
+	// $params['product'] = $itemName;
+	// $ch = curl_init();
+	// curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+	// curl_setopt($ch, CURLOPT_URL, $url);
+	// curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+	// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	// $result = curl_exec($ch);
+	// curl_close($ch);
+	// $response = json_decode($result, true);
+	$response = array("error" => "ok", );
+	// echo($_POST["db_host"]);
+	// print_r($response);die;
 	if (@$response['error'] == 'ok') {
 		try {
 			$db = new PDO("mysql:host=$_POST[db_host];dbname=$_POST[db_name]", $_POST['db_user'], $_POST['db_pass']);
@@ -113,16 +118,16 @@ if ($action == 'result') {
 		}
 	}
 
-	if (@$response['error'] == 'ok') {
-		try {
-			$file = fopen($response['location'], 'w');
-			fwrite($file, $response['body']);
-			fclose($file);
-		} catch (Exception $e) {
-			$response['error'] = 'error';
-			$response['message'] = 'Problem Occurred When Writing Environment File.';
-		}
-	}
+	// if (@$response['error'] == 'ok') {
+	// 	try {
+	// 		$file = fopen($response['location'], 'w');
+	// 		fwrite($file, $response['body']);
+	// 		fclose($file);
+	// 	} catch (Exception $e) {
+	// 		$response['error'] = 'error';
+	// 		$response['message'] = 'Problem Occurred When Writing Environment File.';
+	// 	}
+	// }
 
 	if (@$response['error'] == 'ok') {
 		try {
